@@ -1223,7 +1223,7 @@ function Run-Sysprep {
     Start-VM $Name | Out-Null
     Start-Sleep 5
     Wait-ForVMShutdown $Name
-    Remove-VM $Name -Confirm:$false -Force
+    # Remove-VM $Name -Confirm:$false -Force
 }
 
 function Convert-KvpData($xmlData) {
@@ -1724,7 +1724,7 @@ function New-WindowsCloudImage {
         if (!($windowsImageConfig.virtual_disk_format -in @("VHD", "VHDX"))) {
             Convert-VirtualDisk -vhdPath $vhdPath -outPath $imagePath `
                 -format $windowsImageConfig.virtual_disk_format
-            Remove-Item -Force $vhdPath
+            # Remove-Item -Force $vhdPath
         } elseif ($vhdPath -ne $imagePath) {
             Move-Item -Force $vhdPath $imagePath
         }
@@ -1893,7 +1893,7 @@ function New-WindowsFromGoldenImage {
             Write-Log "Converting VHD to RAW"
             Convert-VirtualDisk -vhdPath $imagePath -outPath $imagePathRaw `
                 -format "RAW"
-            Remove-Item -Force $imagePath
+            # Remove-Item -Force $imagePath
             $imagePath = $imagePathRaw
         }
 
@@ -1902,7 +1902,7 @@ function New-WindowsFromGoldenImage {
             Write-Log "Converting VHD to QCow2"
             Convert-VirtualDisk -vhdPath $imagePath -outPath $imagePathQcow2 `
                 -format "qcow2" -CompressQcow2 $windowsImageConfig.compress_qcow2
-            Remove-Item -Force $imagePath
+            # Remove-Item -Force $imagePath
             $imagePath = $imagePathQcow2
         }
 
@@ -1911,7 +1911,7 @@ function New-WindowsFromGoldenImage {
             Write-Log "Converting VHD to VMDK"
             Convert-VirtualDisk -vhdPath $imagePath -outPath $imagePathVmdk `
                 -format "vmdk"
-            Remove-Item -Force $imagePath
+            # Remove-Item -Force $imagePath
             $imagePath = $imagePathVmdk
         }
 
